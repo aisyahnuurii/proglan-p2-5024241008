@@ -7,32 +7,60 @@ protected:
     std::string peran;
     int gajiPokok;
 public:
+    AnggotaTim(std::string n, std::string p, int gajiPkk) {
+        nama = n;
+        peran = p;
+        gajiPokok = gajiPkk;
+    }
     
+    AnggotaTim() {}
+    
+    virtual ~AnggotaTim() {}
 };
+
 
 class Pembalap : public AnggotaTim {
 private:
-    
+    int jumlahPodium;
 public:
-    
-    int hitungGajiTotal() {
-      
+    Pembalap(std::string n, int gaji, int podium) {
+        nama = n;
+        peran = "pembalap";
+        gajiPokok = gaji;
+        jumlahPodium = podium;
     }
+    
+    Pembalap() {}
+
+    int hitungGajiTotal() {
+        int bonus = jumlahPodium * 20000;
+        return gajiPokok + bonus;
+    }
+    
     void printInfo() {
-      
+        std::cout << "Gaji total " << nama << " (pembalap) adalah $" << hitungGajiTotal() << std::endl;
     }
 };
 
 class Crew : public AnggotaTim {
 private:
-    
+    int jumlahRace;
 public:
+    Crew(std::string n, int gaji, int race) {
+        nama = n;
+        peran = "crew";
+        gajiPokok = gaji;
+        jumlahRace = race;
+    }
     
+    Crew() {}
+
     int hitungGajiTotal() {
-        
+         int bonus = jumlahRace * 1000;
+        return gajiPokok + bonus;
     }
     void printInfo() {
-        
+        std::cout << "Gaji total " << nama << " (crew) adalah $" << hitungGajiTotal() << std::endl;
     }
 };
 
