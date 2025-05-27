@@ -7,26 +7,37 @@ protected:
     std::string peran;
     int gajiPokok;
 public:
-    AnggotaTim(std::string nama, std::string peran, int gajiPokok)
-        : nama(nama), peran(peran), gajiPokok(gajiPokok) {}
+    AnggotaTim(std::string n, std::string p, int gajiPkk) {
+        nama = n;
+        peran = p;
+        gajiPokok = gajiPkk;
+    }
     
-
-    virtual int hitungGajiTotal() = 0;
-    virtual void printInfo() = 0;
+    AnggotaTim() {}
+    
+    virtual ~AnggotaTim() {}
 };
+
 
 class Pembalap : public AnggotaTim {
 private:
     int jumlahPodium;
 public:
-    Pembalap(std::string nama, int gajiPokok, int jumlahPodium)
-        : AnggotaTim(nama, "pembalap", gajiPokok), jumlahPodium(jumlahPodium) {}
-
-    int hitungGajiTotal() override {
-        return gajiPokok + (jumlahPodium * 20000);
+    Pembalap(std::string n, int gaji, int podium) {
+        nama = n;
+        peran = "pembalap";
+        gajiPokok = gaji;
+        jumlahPodium = podium;
     }
+    
+    Pembalap() {}
 
-    void printInfo() override {
+    int hitungGajiTotal() {
+        int bonus = jumlahPodium * 20000;
+        return gajiPokok + bonus;
+    }
+    
+    void printInfo() {
         std::cout << "Gaji total " << nama << " (pembalap) adalah $" << hitungGajiTotal() << std::endl;
     }
 };
@@ -35,18 +46,23 @@ class Crew : public AnggotaTim {
 private:
     int jumlahRace;
 public:
-    Crew(std::string nama, int gajiPokok, int jumlahRrace)
-        : AnggotaTim(nama, "crew", gajiPokok), jumlahRace(jumlahRace) {}
-
-    int hitungGajiTotal() override {
-        return gajiPokok + (jumlahRace * 1000);
+    Crew(std::string n, int gaji, int race) {
+        nama = n;
+        peran = "crew";
+        gajiPokok = gaji;
+        jumlahRace = race;
     }
+    
+    Crew() {}
 
-    void printInfo() override {
+    int hitungGajiTotal() {
+         int bonus = jumlahRace * 1000;
+        return gajiPokok + bonus;
+    }
+    void printInfo() {
         std::cout << "Gaji total " << nama << " (crew) adalah $" << hitungGajiTotal() << std::endl;
     }
 };
-
 
 int main() {
     int jumlahAnggota;
